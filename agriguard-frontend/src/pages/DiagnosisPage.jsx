@@ -34,11 +34,11 @@ const DiagnosisPage = () => {
             </div>
 
             {!result ? (
-                <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 animate-fade-in-up">
+                <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-white/50 animate-fade-in-up">
                     <ImageUpload onAnalyze={handleAnalyze} />
                 </div>
             ) : (
-                <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 animate-fade-in-up">
+                <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-white/50 animate-fade-in-up">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div>
                             <img
