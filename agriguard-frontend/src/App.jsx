@@ -9,23 +9,26 @@ import ResultsPage from './pages/ResultsPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
 import HelpPage from './pages/HelpPage';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
     return (
-        <AppProvider>
-            <DiagnosisProvider>
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
-                        <Route path="/results" element={<MainLayout><ResultsPage /></MainLayout>} />
-                        <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
-                        <Route path="/profile" element={<MainLayout><ProfilePage /></MainLayout>} />
-                        <Route path="/diagnosis" element={<DiagnosisPage />} />
-                        <Route path="/dashboard" element={<DashboardPage />} />
-                    </Routes>
-                </Router>
-            </DiagnosisProvider>
-        </AppProvider>
+        <AuthProvider>
+            <AppProvider>
+                <DiagnosisProvider>
+                    <Router>
+                        <Routes>
+                            <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+                            <Route path="/results" element={<MainLayout><ResultsPage /></MainLayout>} />
+                            <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
+                            <Route path="/profile" element={<MainLayout><ProfilePage /></MainLayout>} />
+                            <Route path="/diagnosis" element={<DiagnosisPage />} />
+                            <Route path="/dashboard" element={<DashboardPage />} />
+                        </Routes>
+                    </Router>
+                </DiagnosisProvider>
+            </AppProvider>
+        </AuthProvider>
     );
 }
 
