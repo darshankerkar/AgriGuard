@@ -20,6 +20,7 @@ const Navbar = () => {
                 {/* Center Navigation Links */}
                 <div className="hidden md:flex items-center space-x-8">
                     <Link to="/" className={`text-base font-medium transition-colors ${isActive('/')}`}>Home</Link>
+                    <Link to="/profile" className={`text-base font-medium transition-colors ${isActive('/profile')}`}>Profile</Link>
                     <Link to="/diagnosis" className={`text-base font-medium transition-colors ${isActive('/diagnosis')}`}>Diagnosis</Link>
                     <Link to="/dashboard" className={`text-base font-medium transition-colors ${isActive('/dashboard')}`}>Dashboard</Link>
                     <Link to="/help" className={`text-base font-medium transition-colors ${isActive('/help')}`}>Help</Link>

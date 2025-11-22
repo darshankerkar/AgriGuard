@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import DiagnosisPage from './pages/DiagnosisPage';
 import ResultsPage from './pages/ResultsPage';
 import DashboardPage from './pages/DashboardPage';
+import ProfilePage from './pages/ProfilePage';
 import HelpPage from './pages/HelpPage';
 
 function App() {
@@ -15,12 +16,10 @@ function App() {
             <DiagnosisProvider>
                 <Router>
                     <Routes>
-                        {/* Pages using MainLayout */}
                         <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
                         <Route path="/results" element={<MainLayout><ResultsPage /></MainLayout>} />
                         <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
-
-                        {/* Pages using their own internal DashboardLayout */}
+                        <Route path="/profile" element={<MainLayout><ProfilePage /></MainLayout>} />
                         <Route path="/diagnosis" element={<DiagnosisPage />} />
                         <Route path="/dashboard" element={<DashboardPage />} />
                     </Routes>
