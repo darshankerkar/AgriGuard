@@ -465,7 +465,7 @@ const HelpPage = () => {
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="w-full py-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg"
                 >
-                    Back to Top ↑
+                    Back to Top
                 </button>
             </div>
         </div>
