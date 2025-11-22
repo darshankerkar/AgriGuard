@@ -1,4 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+} from 'chart.js';
+import { Line, Pie } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement
+);
 
 const StatsModal = ({ isOpen, onClose, stat }) => {
     const [animate, setAnimate] = useState(false);
@@ -13,97 +36,75 @@ const StatsModal = ({ isOpen, onClose, stat }) => {
 
     if (!isOpen) return null;
 
-    const LineChart = ({ data, color }) => {
-        const max = Math.max(...data);
-        const points = data.map((val, i) => {
-            const x = (i / (data.length - 1)) * 100;
-            const y = 100 - (val / max) * 80; // Keep some padding at top
-            return `${x},${y}`;
-        }).join(' ');
-
-        return (
-            <div className="h-64 w-full relative mt-8 bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full overflow-visible">
-                    {/* Grid lines */}
-                    <line x1="0" y1="20" x2="100" y2="20" stroke="#e5e7eb" strokeWidth="0.5" />
-                    <line x1="0" y1="40" x2="100" y2="40" stroke="#e5e7eb" strokeWidth="0.5" />
-                    <line x1="0" y1="60" x2="100" y2="60" stroke="#e5e7eb" strokeWidth="0.5" />
-                    <line x1="0" y1="80" x2="100" y2="80" stroke="#e5e7eb" strokeWidth="0.5" />
-
-                    {/* Chart Line */}
-                    <polyline
-                        fill="none"
-                        stroke={color}
-                        strokeWidth="2"
-                        points={points}
-                        className="animate-draw-line"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-
-                    {/* Area under curve (optional, simplified) */}
-                    <polygon
-                        fill={color}
-                        fillOpacity="0.1"
-                        points={`0,100 ${points} 100,100`}
-                    />
-                </svg>
-                {/* Labels */}
-                <div className="absolute bottom-0 left-0 w-full flex justify-between text-xs text-gray-400 px-2 pb-2">
-                    <span>Week 1</span>
-                    <span>Week 2</span>
-                    <span>Week 3</span>
-                    <span>Week 4</span>
-                </div>
-            </div>
-        );
+    const lineOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    display: false,
+                }
+            },
+            x: {
+                grid: {
+                    display: false,
+                }
+            }
+        },
+        elements: {
+            line: {
+                tension: 0.4, // Smooth curves
+            }
+        }
     };
 
-    const PieChart = ({ data }) => {
-        // Simple 2-segment pie for demo
-        const total = data.reduce((a, b) => a + b.value, 0);
-        let currentAngle = 0;
+    const pieOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+            },
+        },
+    };
 
-        return (
-            <div className="h-64 w-full flex items-center justify-center mt-8 relative">
-                <svg viewBox="0 0 100 100" className="w-48 h-48 transform -rotate-90">
-                    {data.map((item, i) => {
-                        const percentage = (item.value / total) * 100;
-                        const dashArray = `${percentage} 100`;
-                        const offset = 100 - currentAngle;
-                        currentAngle += percentage;
-
-                        return (
-                            <circle
-                                key={i}
-                                cx="50"
-                                cy="50"
-                                r="40"
-                                fill="transparent"
-                                stroke={item.color}
-                                strokeWidth="20"
-                                strokeDasharray={dashArray}
-                                strokeDashoffset={offset} // This logic is simplified for SVG circle strokes
-                                className="animate-pie-segment"
-                            />
-                        );
-                    })}
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-3xl font-bold text-gray-800">{total}</span>
-                    <span className="text-xs text-gray-500">Total</span>
-                </div>
-                {/* Legend */}
-                <div className="absolute bottom-0 right-0 flex flex-col gap-2 text-xs">
-                    {data.map((item, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                            <span className="text-gray-600">{item.label}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
+    const getChartData = () => {
+        if (stat.type === 'line') {
+            return {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: stat.title,
+                        data: stat.chartData,
+                        borderColor: stat.chartColor,
+                        backgroundColor: stat.chartColor,
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 2,
+                    },
+                ],
+            };
+        } else if (stat.type === 'pie') {
+            return {
+                labels: stat.chartData.map(d => d.label),
+                datasets: [
+                    {
+                        data: stat.chartData.map(d => d.value),
+                        backgroundColor: stat.chartData.map(d => d.color),
+                        borderWidth: 0,
+                    },
+                ],
+            };
+        }
+        return null;
     };
 
     return (
@@ -135,13 +136,16 @@ const StatsModal = ({ isOpen, onClose, stat }) => {
                     </div>
                 </div>
 
-                {stat.type === 'line' && (
-                    <LineChart data={stat.chartData} color={stat.chartColor} />
-                )}
-
-                {stat.type === 'pie' && (
-                    <PieChart data={stat.chartData} />
-                )}
+                <div className="h-64 w-full mt-8 flex items-center justify-center bg-gray-50 rounded-2xl p-4 border border-gray-100">
+                    {stat.type === 'line' && (
+                        <Line options={lineOptions} data={getChartData()} />
+                    )}
+                    {stat.type === 'pie' && (
+                        <div className="w-64 h-64">
+                            <Pie options={pieOptions} data={getChartData()} />
+                        </div>
+                    )}
+                </div>
 
                 <div className="mt-8 grid grid-cols-3 gap-4">
                     <div className="bg-gray-50 rounded-xl p-4 text-center">
