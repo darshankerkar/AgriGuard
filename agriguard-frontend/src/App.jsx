@@ -14,15 +14,16 @@ function App() {
         <AppProvider>
             <DiagnosisProvider>
                 <Router>
-                    <MainLayout>
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/diagnosis" element={<DiagnosisPage />} />
-                            <Route path="/results" element={<ResultsPage />} />
-                            <Route path="/dashboard" element={<DashboardPage />} />
-                            <Route path="/help" element={<HelpPage />} />
-                        </Routes>
-                    </MainLayout>
+                    <Routes>
+                        {/* Pages using MainLayout */}
+                        <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+                        <Route path="/results" element={<MainLayout><ResultsPage /></MainLayout>} />
+                        <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
+
+                        {/* Pages using their own internal DashboardLayout */}
+                        <Route path="/diagnosis" element={<DiagnosisPage />} />
+                        <Route path="/dashboard" element={<DashboardPage />} />
+                    </Routes>
                 </Router>
             </DiagnosisProvider>
         </AppProvider>

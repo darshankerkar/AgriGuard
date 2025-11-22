@@ -54,8 +54,8 @@ const RecentDiagnosesTable = () => {
     };
 
     return (
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: '500ms' }}>
-            <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="bg-white/80 backdrop-blur-md rounded-3xl shadow-sm border border-white/50 overflow-hidden animate-fade-in-up" style={{ animationDelay: '500ms' }}>
+            <div className="p-6 border-b border-gray-100/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h3 className="text-lg font-bold text-gray-800">Recent Diagnoses</h3>
                     <p className="text-gray-500 text-sm">Latest plant health checks</p>

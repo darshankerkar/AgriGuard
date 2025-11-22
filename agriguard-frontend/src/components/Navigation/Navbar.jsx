@@ -10,10 +10,10 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
                 {/* Logo Section */}
                 <Link to="/" className="flex items-center gap-2 group">
-                    <img 
-                        src="/favicon.ico" 
-                        alt="AgriGuard Logo" 
-                        className="h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
+                    <img
+                        src="/favicon.ico"
+                        alt="AgriGuard Logo"
+                        className="h-12 w-auto object-contain group-hover:scale-105 transition-transform"
                     />
                 </Link>
 

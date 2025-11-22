@@ -3,7 +3,7 @@ import React from 'react';
 const StatsCard = ({ title, value, icon, trend, color, delay, onClick }) => {
     return (
         <div
-            className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up cursor-pointer"
+            className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-white/50 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up cursor-pointer"
             style={{ animationDelay: `${delay}ms` }}
             onClick={onClick}
         >
