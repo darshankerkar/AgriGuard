@@ -3,10 +3,12 @@ import DashboardLayout from '../components/Layouts/DashboardLayout';
 import StatsCard from '../components/Dashboard/StatsCard';
 import RecentDiagnosesTable from '../components/Dashboard/RecentDiagnosesTable';
 import StatsModal from '../components/Dashboard/StatsModal';
+import { useNavigate } from 'react-router-dom';
 
 
 const DashboardPage = () => {
     const [selectedStat, setSelectedStat] = useState(null);
+    const navigate = useNavigate();
 
     const stats = [
         {
@@ -95,22 +97,15 @@ const DashboardPage = () => {
                 </div>
 
                 {/* Right Column: Quick Actions or Additional Info */}
-                <div className="space-y-6">
-                    {/* Quick Upload Card */}
-                    <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 text-white shadow-xl">
-                        <h3 className="text-xl font-bold mb-2">New Diagnosis</h3>
-                        <p className="text-gray-400 text-sm mb-6">Upload a photo to check for diseases instantly.</p>
-
-                        <button className="w-full py-3 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-xl text-gray-900 font-bold hover:opacity-95 transition-opacity flex items-center justify-center gap-2">
-                            <span></span> Upload Photo
-                        </button>
-                    </div>
-
-                    {/* Disease Map */}
-                    {/* Disease Map Placeholder */}
-                    <div className="h-96 bg-gray-100 rounded-3xl flex items-center justify-center">
-                        <p className="text-gray-500">Map Temporarily Disabled</p>
-                    </div>
+                <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 text-white shadow-xl">
+                    <h3 className="text-xl font-bold mb-2">New Diagnosis</h3>
+                    <p className="text-gray-400 text-sm mb-6">Upload a photo to check for diseases instantly.</p>
+                    <button
+                        className="w-full py-3 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-xl text-gray-900 font-bold hover:opacity-95 transition-opacity flex items-center justify-center gap-2"
+                        onClick={() => navigate('/diagnosis')}
+                    >
+                        <span></span> Upload Photo
+                    </button>
                 </div>
             </div>
         </DashboardLayout>
